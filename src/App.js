@@ -12,7 +12,8 @@ class App extends Component {
         title: "",
         rating: ""
       },
-      modal: false
+      newModal: false,
+      editModal:false
     };
   }
 
@@ -22,9 +23,15 @@ class App extends Component {
       .then(response => this.setState({ books: response.data }));
   }
 
-  toggle = () => {
+  editModalToggle = () => {
     this.setState(prevState => ({
-      modal: !prevState.modal
+      editModal: !prevState.editModal
+    }));
+  };
+
+  newModalToggle = () => {
+    this.setState(prevState => ({
+      mewModal: !prevState.newModal
     }));
   };
 
@@ -38,19 +45,29 @@ class App extends Component {
 
   onDelete = id => {
     console.log("onDelete =id", id);
-    this.setState(prevState => {
-      let books = prevState.books;
-      books.splice(id, 1);
-      return { books: books };
-    });
+    axios
+    .delete(`http://localhost:3000/books/${id}`)
+
+    axios
+      .get("http://localhost:3000/books")
+    .then(response=>this.setState({books:response.data}))
+    // this.setState(prevState => {
+    //   let books = prevState.books;
+    //   books.splice(id, 1);
+    //   return { books: books };
+    // });
   };
 
-  onEdit = id => {
-    console.log("edit id", id);
+  onEdit = book => {
+    this.editModalToggle();
+    this.setState({book})
+    // axios
+    // .get(`http://localhost:3000/books/${book.id}`)
+    // .then(response=>this.setState({book:response.data}))
   };
-  
+
   onSubmit = () => {
-    this.toggle();
+    this.newModalToggle();
     axios
       .post("http://localhost:3000/books", this.state.book)
       .then(response => {
@@ -61,6 +78,18 @@ class App extends Component {
       });
   };
 
+  onSubmitEditted=()=>{
+    this.editModalToggle();
+    let {id} = this.state.book;
+    axios.patch(`http://localhost:3000/books/${id}`,this.state.book);
+
+    axios
+    .get("http://localhost:3000/books")
+    .then(response => this.setState({ books: response.data }));
+    
+  }
+
+
   render() {
     console.log("state", this.state.book);
     return (
@@ -69,13 +98,21 @@ class App extends Component {
           books={this.state.books}
           onDelete={this.onDelete}
           toggle={this.toggle}
-          onEedit={this.onEdit}
+          onEdit={this.onEdit}
         />
         <ModalShow
-          modalState={this.state.modal}
-          toggle={this.toggle}
+          modalState={this.state.newModal}
+          toggle={this.newModalToggle}
           onChangeTitle={this.onChangeTitle}
           onSubmit={this.onSubmit}
+          book={this.state.book}
+        />
+        <ModalShow
+          modalState={this.state.editModal}
+          toggle={this.editModalToggle}
+          onChangeTitle={this.onChangeTitle}
+          onSubmit={this.onSubmitEditted}
+          book={this.state.book}
         />
       </div>
     );

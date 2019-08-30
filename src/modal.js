@@ -11,7 +11,7 @@ Input,
 Button
 } from "reactstrap";
 
-const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit}) => {
+const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit,book}) => {
     return ( 
         <Modal
           isOpen={modalState}
@@ -26,6 +26,7 @@ const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit}) => {
                 type="text"
                 name="title"
                 id="titleID"
+                value={book.title}
                 placeholder="write book"
                 onChange={onChangeTitle}
               />
@@ -36,6 +37,7 @@ const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit}) => {
                 type="text"
                 name="auther"
                 id="autherID"
+                value={book.auther}
                 placeholder="Auther Name"
                 onChange={onChangeTitle}
               />
@@ -46,6 +48,7 @@ const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit}) => {
                 type="number"
                 name="rating"
                 id="ratingID"
+                value={book.rating}
                 placeholder="Rating placeholder"
                 onChange={onChangeTitle}
               />

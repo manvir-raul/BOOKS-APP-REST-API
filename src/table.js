@@ -10,10 +10,10 @@ const TableShow = ({ books, onDelete, toggle ,onEdit}) => {
         <td>{book.auther}</td>
         <td>{book.rating}</td>
         <td>
-          <Button color="success" size="sm" className="mr-2" onClick={()=>onEdit(book.id)}>
+          <Button color="success" size="sm" className="mr-2" onClick={()=>onEdit(book)}>
             Edit
           </Button>
-          <Button color="danger" size="sm" onClick={() => onDelete(index)}>
+          <Button color="danger" size="sm" onClick={() => onDelete(book.id)}>
             Delete
           </Button>
         </td>
