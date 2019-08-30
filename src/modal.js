@@ -21,21 +21,31 @@ const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit}) => {
           <ModalHeader toggle={toggle}>Add Book</ModalHeader>
           <ModalBody>
             <FormGroup>
-              <Label for="exampleText">Book</Label>
+              <Label for="titleID">Book</Label>
               <Input
                 type="text"
                 name="title"
-                id="exampleText"
-                placeholder="with a book"
+                id="titleID"
+                placeholder="write book"
                 onChange={onChangeTitle}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="exampleRating">Rating</Label>
+            <Label for="autherID">Auther</Label>
+              <Input
+                type="text"
+                name="auther"
+                id="autherID"
+                placeholder="Auther Name"
+                onChange={onChangeTitle}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="ratingID">Rating</Label>
               <Input
                 type="number"
                 name="rating"
-                id="exampleNumber"
+                id="ratingID"
                 placeholder="Rating placeholder"
                 onChange={onChangeTitle}
               />
