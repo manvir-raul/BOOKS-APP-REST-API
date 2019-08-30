@@ -30,8 +30,10 @@ class App extends Component {
   };
 
   newModalToggle = () => {
+    console.log("add clicked");
+    
     this.setState(prevState => ({
-      mewModal: !prevState.newModal
+      newModal: !prevState.newModal
     }));
   };
 
@@ -44,26 +46,17 @@ class App extends Component {
   };
 
   onDelete = id => {
-    console.log("onDelete =id", id);
     axios
     .delete(`http://localhost:3000/books/${id}`)
 
     axios
       .get("http://localhost:3000/books")
     .then(response=>this.setState({books:response.data}))
-    // this.setState(prevState => {
-    //   let books = prevState.books;
-    //   books.splice(id, 1);
-    //   return { books: books };
-    // });
   };
 
   onEdit = book => {
     this.editModalToggle();
     this.setState({book})
-    // axios
-    // .get(`http://localhost:3000/books/${book.id}`)
-    // .then(response=>this.setState({book:response.data}))
   };
 
   onSubmit = () => {
@@ -91,13 +84,12 @@ class App extends Component {
 
 
   render() {
-    console.log("state", this.state.book);
     return (
       <div className="App">
         <TableShow
           books={this.state.books}
           onDelete={this.onDelete}
-          toggle={this.toggle}
+          toggle={this.newModalToggle}
           onEdit={this.onEdit}
         />
         <ModalShow
@@ -106,6 +98,7 @@ class App extends Component {
           onChangeTitle={this.onChangeTitle}
           onSubmit={this.onSubmit}
           book={this.state.book}
+          button="add book"
         />
         <ModalShow
           modalState={this.state.editModal}
@@ -113,6 +106,7 @@ class App extends Component {
           onChangeTitle={this.onChangeTitle}
           onSubmit={this.onSubmitEditted}
           book={this.state.book}
+          button="edit book"
         />
       </div>
     );

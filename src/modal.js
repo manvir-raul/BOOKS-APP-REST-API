@@ -11,7 +11,7 @@ Input,
 Button
 } from "reactstrap";
 
-const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit,book}) => {
+const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit,book,button}) => {
     return ( 
         <Modal
           isOpen={modalState}
@@ -56,7 +56,7 @@ const ModalShow = ({modalState,modal,toggle,onChangeTitle,onSubmit,book}) => {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={onSubmit}>
-              Add Book
+              {button}
             </Button>{" "}
             <Button color="secondary" onClick={toggle}>
               Cancel
